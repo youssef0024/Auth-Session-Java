@@ -1,15 +1,32 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import controller.MainController;
+import java.util.Scanner;
+import java.util.UUID;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        MainController ctrl = new MainController();
+        Scanner sc = new Scanner(System.in);
+        UUID currentToken = null;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        while(true) {
+            System.out.println("\n[Moi: " + ctrl.quiEstConnecte(currentToken) + "]");
+            System.out.print("1.Login 2.Voir 3.Modifier 4.Exit > ");
+            int choix = sc.nextInt();
+            sc.nextLine();
+
+            if(choix == 1) {
+                System.out.print("Nom: "); String n = sc.nextLine();
+                System.out.print("Pass: "); String p = sc.nextLine();
+                currentToken = ctrl.authentifier(n, p);
+            } else if(choix == 2) {
+                ctrl.afficherTout();
+            } else if(choix == 3) {
+                System.out.print("Nouveau 'a': ");
+                int v = sc.nextInt();
+                System.out.println(ctrl.changerA(currentToken, String.valueOf(v)));
+            } else {
+                break;
+            }
         }
     }
 }
